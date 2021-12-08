@@ -6,7 +6,16 @@ import { AppComponent } from './app.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSelectModule } from '@angular/material/select';
-import { FormControl } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { StatePageComponent } from './state-page/state-page.component';
+import { FormsModule } from '@angular/forms';
+import {MatButtonModule} from '@angular/material/button';
+import { HttpClientModule } from '@angular/common/http';
+
+const appRoutes: Routes = [
+  {path : '', component : MainPageComponent},
+  {path : 'state/:name', component : StatePageComponent}
+];
 
 @NgModule({
   declarations: [
@@ -18,6 +27,10 @@ import { FormControl } from '@angular/forms';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSelectModule,
+    RouterModule.forRoot(appRoutes),
+    FormsModule,
+    MatButtonModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

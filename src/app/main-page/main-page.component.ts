@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {MatSelectModule} from '@angular/material/select';
-import {FormControl} from '@angular/forms';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+
 
 
 @Component({
@@ -9,47 +10,35 @@ import {FormControl} from '@angular/forms';
   styleUrls: ['./main-page.component.css']
 })
 export class MainPageComponent implements OnInit {
+  states: string[] = []
+
+  constructor(private router: Router, private http: HttpClient) {
+
+  }
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }
 
-  selectedValue:string | undefined;
+  selectedValue:string = "";
 
-  states: string[] = new Array( "Andhra Pradesh",
-                "Arunachal Pradesh",
-                "Assam",
-                "Bihar",
-                "Chhattisgarh",
-                "Goa",
-                "Gujarat",
-                "Haryana",
-                "Himachal Pradesh",
-                "Jammu and Kashmir",
-                "Jharkhand",
-                "Karnataka",
-                "Kerala",
-                "Madhya Pradesh",
-                "Maharashtra",
-                "Manipur",
-                "Meghalaya",
-                "Mizoram",
-                "Nagaland",
-                "Odisha",
-                "Punjab",
-                "Rajasthan",
-                "Sikkim",
-                "Tamil Nadu",
-                "Telangana",
-                "Tripura",
-                "Uttarakhand",
-                "Uttar Pradesh",
-                "West Bengal",
-                "Andaman and Nicobar Islands",
-                "Chandigarh",
-                "Dadra and Nagar Haveli",
-                "Daman and Diu",
-                "Delhi",
-                "Lakshadweep",
-                "Puducherry").sort();
+  goToStatePage() {
+    if(this.selectedValue.trim() != '') {
+      let routeName = '/state/' + this.selectedValue;
+      this.router.navigate([routeName]);
+    }
+    
+    this.fetchData()
+    
+  }
+
+  fetchData() {
+    this.http.get('https://data.covid19india.org/state_district_wise.json').subscribe(item => {
+      const jsonData = JSON.parse(JSON.stringify(item));
+      
+      for(var key in jsonData) {
+        this.states.concat(key)
+      }
+    });
+  }
 
 }
