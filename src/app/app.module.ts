@@ -11,16 +11,18 @@ import { StatePageComponent } from './state-page/state-page.component';
 import { FormsModule } from '@angular/forms';
 import {MatButtonModule} from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { DistrictPageComponent } from './district-page/district-page.component';
 
 const appRoutes: Routes = [
   {path : '', component : MainPageComponent},
-  {path : 'state/:name', component : StatePageComponent}
+  {path : 'state/:name', component : StatePageComponent},
 ];
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainPageComponent
+    MainPageComponent,
+    DistrictPageComponent
   ],
   imports: [
     BrowserModule,

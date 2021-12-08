@@ -11,6 +11,7 @@ export class StatePageComponent implements OnInit {
   stateName = "Test"
   constructor(private route: ActivatedRoute, private router: Router, private http: HttpClient) { }
 
+  stateData : any;
   
 
   ngOnInit(): void {
@@ -28,16 +29,7 @@ export class StatePageComponent implements OnInit {
     this.http.get('https://data.covid19india.org/state_district_wise.json').subscribe(item => {
       const jsonData = JSON.parse(JSON.stringify(item));
       
-      for(var key in jsonData) {
-        console.log(key);
-        
-      }
-
-      // console.log(jsonData[this.stateName]);
-      // jsonData.array.forEach((element: any) => {
-      //   console.log(element);
-        
-      // });
+      this.stateData = JSON.stringify(jsonData[this.stateName]);
     });
   }
 

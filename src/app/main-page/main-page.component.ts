@@ -13,10 +13,9 @@ export class MainPageComponent implements OnInit {
   states: string[] = []
 
   constructor(private router: Router, private http: HttpClient) {
-
+    this.fetchData()
   }
   ngOnInit(): void {
-    throw new Error('Method not implemented.');
   }
 
   selectedValue:string = "";
@@ -26,9 +25,6 @@ export class MainPageComponent implements OnInit {
       let routeName = '/state/' + this.selectedValue;
       this.router.navigate([routeName]);
     }
-    
-    this.fetchData()
-    
   }
 
   fetchData() {
@@ -36,7 +32,7 @@ export class MainPageComponent implements OnInit {
       const jsonData = JSON.parse(JSON.stringify(item));
       
       for(var key in jsonData) {
-        this.states.concat(key)
+        this.states.push(key)
       }
     });
   }
